@@ -1,6 +1,7 @@
 {
   "name": "international-phone-number",
   "main": "releases/international-phone-number.js",
+  "ignore": [],
   "description": "AngularJS directive for intl-tel-input jQuery plugin",
   "author": "Marek Pietrucha (http://enginearch.com)",
   "license": "MIT",
