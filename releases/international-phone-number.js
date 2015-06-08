@@ -42,13 +42,17 @@
                     }
                     option = attrs[key];
                     if (key === 'preferredCountries') {
-                        return options.preferredCountries = handleArrays(option);
+                        options.preferredCountries = handleArrays(option);
+                        return true;
                     } else if (key === 'onlyCountries') {
-                        return options.onlyCountries = handleArrays(option);
+                        options.onlyCountries = handleArrays(option);
+                        return true;
                     } else if (typeof value === 'boolean') {
-                        return options[key] = option === 'true';
+                        options[key] = option === 'true';
+                        return true;
                     } else {
-                        return options[key] = option;
+                        options[key] = option;
+                        return true;
                     }
                 });
                 watchOnce = scope.$watch('ngModel', function(newValue) {
