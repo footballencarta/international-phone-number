@@ -1,6 +1,7 @@
 (function() {
   "use strict";
-  angular.module("internationalPhoneNumber", []).directive('internationalPhoneNumber', function($timeout) {
+
+  function internationalPhoneNumber($timeout) {
     return {
       restrict: 'A',
       require: '^ngModel',
@@ -47,6 +48,7 @@
             return options[key] = option;
           }
         });
+
         watchOnce = scope.$watch('ngModel', function(newValue) {
           return scope.$$postDigest(function() {
             options.defaultCountry = scope.defaultCountry;
@@ -60,6 +62,7 @@
             return watchOnce();
           });
         });
+
         ctrl.$formatters.push(function(value) {
           if (!value) {
             return value;
@@ -70,12 +73,14 @@
             return element.val();
           }
         });
+
         ctrl.$parsers.push(function(value) {
           if (!value) {
             return value;
           }
           return value.replace(/[^\d]/g, '');
         });
+
         ctrl.$validators.internationalPhoneNumber = function(value) {
           if (!value) {
             return value;
@@ -83,15 +88,23 @@
             return element.intlTelInput("isValidNumber");
           }
         };
+
         element.on('blur keyup change', function(event) {
           return scope.$apply(read);
         });
+
         return element.on('$destroy', function() {
           element.intlTelInput('destroy');
           return element.off('blur keyup change');
         });
       }
-    };
-  });
+    }
+  }
+
+  internationalPhoneNumber.$inject = ['$timeout'];
+
+  angular
+    .module("internationalPhoneNumber", [])
+    .directive('internationalPhoneNumber', internationalPhoneNumber);
 
 }).call(this);
